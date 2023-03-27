@@ -1,8 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
+use App\Hotel;
+use App\Review;
+use App\Like;
 
 class HotelController extends Controller
 {
@@ -13,9 +17,57 @@ class HotelController extends Controller
      */
 
      //ホテル一覧表示
-    public function index()
+    public function index(Request $request)
     {
-        return view ('hotels.index');
+
+        $area = $request->area;
+        $price = $request->price;
+
+        $like_model = new Like;
+        $hotel = new Hotel;
+
+        $query = Hotel::query();
+
+        if(!empty($area))
+        {
+            $query->where('area',$area);
+        }
+
+        if(!empty($price))
+        {
+            $query->where('price',$price);
+        }
+
+        $all = $query->get();
+
+        return view('hotels.index',[
+            'hotels' => $all,
+            'like_model' => $like_model,
+            'area' => $area,
+            'price' => $price,
+            
+        ]);
+
+    }
+
+    public function ajaxLike(Request $request){
+        $id = Auth::user()->id;
+        $hotel_id = $request->hotel_id;
+        $like = new Like;
+
+        // 空でない（既にいいねしている）なら
+        if ($like->like_exist($id, $hotel_id)) {
+            //likesテーブルのレコードを削除
+            $like = Like::where('hotel_id', $hotel_id)->where('user_id', $id)->delete();
+        } else {
+            //空（まだ「いいね」していない）ならlikesテーブルに新しいレコードを作成する
+            $like = new Like;
+            $like->hotel_id = $request->hotel_id;
+            $like->user_id = Auth::user()->id;
+            $like->save();
+        }
+
+        return response()->json();
     }
 
     /**
@@ -41,6 +93,7 @@ class HotelController extends Controller
     public function store(Request $request)
     {
         //
+
     }
 
     /**
@@ -51,9 +104,18 @@ class HotelController extends Controller
      */
 
      //詳細表示
-    public function show($id)
+    public function show(Hotel $hotel)
     {
-        //
+        
+        $review = new Review;
+
+        $all = $review->where('hotel_id',$hotel['id'])->get();
+
+        return view('hotels.show',[
+            'reviews' => $all,
+            'hotel' => $hotel,
+        ]);
+
     }
 
     /**
@@ -93,6 +155,12 @@ class HotelController extends Controller
      //削除
     public function destroy($id)
     {
-        //
+        $hotel = Hotel::find($id);
+ 
+        $hotel->delete();
+        
+        $review = Review::where('hotel_id',$id)->delete();
+        return redirect(route('others.index'))->with('success', '削除しました');
+
     }
 }
