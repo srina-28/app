@@ -27,7 +27,7 @@ class OtherStoreRequest extends FormRequest
             'image' => 'required',
             'hotel' => 'required',
             'address' => 'required',
-            'text' => 'required|max:50'
+            'text' => 'required|max:500'
         ];
     }
 
@@ -38,7 +38,7 @@ class OtherStoreRequest extends FormRequest
             'hotel.required' => 'ホテル名は必須項目です。',
             'address.required' => '所在地は必須項目です。',
             'text.required' => 'フリーテキストは必須項目です。',
-            'text.max' => 'フリーテキストは50文字以内で入力してください。'
+            'text.max' => 'フリーテキストは500文字以内で入力してください。'
         ];
     }
 }

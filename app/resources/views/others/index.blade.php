@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col">
             <div class="row">
-                <div class="col">★ホテル一覧(管理者用)</div>
+                <div class="col" style="font-size:20px;">★ホテル一覧(管理者用)</div>
                 <a href="{{ route('others.create',0) }}"><button type="button" class="btn btn-outline-secondary">＋　ホテル追加</button></a>
             </div>
              <div class="row mt-5 justify-content-between">
@@ -23,24 +23,25 @@
                 <table class="mt-5 table text-center">
                     <thead>
                         <tr>
-                            <th scope="col">ホテル名</th>
-                            <th scope="col">エリア</th>
-                            <th scope="col">価格</th>
-                            <th scope="col">詳細</th>
-                            <th scope="col"></th>
+                            <th scope="col" style="border-color:#000000;">ホテル名</th>
+                            <th scope="col" style="border-color:#000000;">エリア</th>
+                            <th scope="col" style="border-color:#000000;">価格</th>
+                            <th scope="col" style="border-color:#000000;">詳細</th>
+                            <th scope="col" style="border-color:#000000;"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($hotels as $hotel)
                         <tr>
-                            <th scope="row">{{ $hotel['hotel'] }}</th>
-                            <td>{{ $hotel['area'] }}</td>
-                            <td>{{ $hotel['price'] }}</td>
-                            <td><a href="{{ route('hotels.show',$hotel['id']) }}">ホテル詳細へ</a></td>
-                            <td><form action="{{route('hotels.destroy', $hotel['id'] )}}" method="post" class="float-right">
-                                @csrf
-                                @method('delete')
-                                <input type="submit" value="削除" class="btn btn-danger" onclick='return confirm("削除しますか？");'></form>
+                            <th scope="row" style="border-color:#000000;">{{ $hotel['hotel'] }}</th>
+                            <td style="border-color:#000000;">{{ $hotel['area'] }}</td>
+                            <td style="border-color:#000000;">{{ $hotel['price'] }}</td>
+                            <td style="border-color:#000000;"><a href="{{ route('hotels.show',$hotel['id']) }}">ホテル詳細へ</a></td>
+                            <td style="border-color:#000000;"><form action="{{route('hotels.destroy', $hotel['id'] )}}" method="post" class="float-right">
+                                    @csrf
+                                    @method('delete')
+                                    <input type="submit" value="削除" class="btn btn-danger" onclick='return confirm("削除しますか？");'>
+                                </form>
                             </td>
                         </tr>
                         @endforeach

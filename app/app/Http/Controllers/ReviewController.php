@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ReviewStoreRequest;
 
 use App\Review;
+use App\Hotel;
+
 
 
 class ReviewController extends Controller

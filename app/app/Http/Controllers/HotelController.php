@@ -8,6 +8,7 @@ use App\Hotel;
 use App\Review;
 use App\Like;
 
+
 class HotelController extends Controller
 {
     /**
@@ -114,6 +115,7 @@ class HotelController extends Controller
         return view('hotels.show',[
             'reviews' => $all,
             'hotel' => $hotel,
+
         ]);
 
     }

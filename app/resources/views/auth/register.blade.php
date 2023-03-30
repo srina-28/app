@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('新規登録') }}</div>
+            <div class="card" style="width:800px;margin: 2em auto;padding:2em;border-radius: 30px 60px/60px 30px;border: solid 3px #ccc7be;background-color:#f5f5f5;">
+                <div class="card-header border-light" style="width:600px;margin: 2em auto;border-radius: 30px 60px/60px 30px;border: solid 3px #dcdcdc;">{{ __('新規登録') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -63,9 +63,10 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-warning">
                                     {{ __('新規登録') }}
                                 </button>
+                                <img src="{{ asset('sea.png')}}" style="margin-left:130px;width:100px;height:100px;">
                             </div>
                         </div>
                     </form>

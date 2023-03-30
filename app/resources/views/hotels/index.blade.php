@@ -2,74 +2,71 @@
 
 @section('content')
 <div class="container">
-    <div class="row px-md-5 justify-content-center">
+    <div class="row px-md-5">
         <div class="col-md-8">
             <form action="{{route('hotels.index')}} ">
-                <div class="row mt-5">
-                    <p>エリア</p>
-                    <div class="col">
-                        <select name="area" class="form-select">
-                            @if(!$area)
-                                <option value="" selected>選択してください</option>
-                            @else
-                                <option value="{{$area}}" selected>{{$area}}</option>
-                            @endif
-                            <option value="茨城">茨城</option>
-                            <option value="栃木">栃木</option>
-                            <option value="群馬">群馬</option>
-                            <option value="埼玉">埼玉</option>
-                            <option value="東京">東京</option>
-                            <option value="神奈川">神奈川</option>
-                            <option value="千葉">千葉</option>
-                        </select>
-                    </div>
-                    <p>価格　</p>
-                    <div class="col">
-                        <select name="price" class="form-select">
-                            @if(!$area)
-                                <option value="" selected>選択してください</option>
-                            @else
-                                <option value="{{$price}}" selected>{{$price}}</option>
-                            @endif
-                            <option value="〜2万">〜2万</option>
-                            <option value="〜3万">〜3万</option>
-                            <option value="〜4万">〜4万</option>
-                            <option value="〜5万">〜5万</option>
-                            <option value="〜6万">〜6万</option>
-                            <option value="〜7万">〜7万</option>
-                            <option value="〜8万">〜8万</option>
-                            <option value="〜9万">〜9万</option>
-                            <option value="〜10万">〜10万</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-outline-secondary">検索</button>
+                <div class="row mt-5 mb-5 justify-content-center">
+                    <select name="area" class="form-select ml-5" style="color:#808080;background-color: #eee8aa;border: 1px solid gray;border-radius: 5px;">
+                        @if(!$area)
+                            <option value="" selected>エリア</option>
+                        @else
+                            <option value="{{$area}}" selected>{{$area}}</option>
+                        @endif
+                        <option value="茨城">茨城</option>
+                        <option value="栃木">栃木</option>
+                        <option value="群馬">群馬</option>
+                        <option value="埼玉">埼玉</option>
+                        <option value="東京">東京</option>
+                        <option value="神奈川">神奈川</option>
+                        <option value="千葉">千葉</option>
+                    </select>
+                    <select name="price" class="form-select ml-5" style="color:#808080;background-color: #eee8aa;border: 1px solid gray;border-radius: 5px;">
+                        @if(!$area)
+                            <option value="" selected>価格</option>
+                        @else
+                            <option value="{{$price}}" selected>{{$price}}</option>
+                        @endif
+                        <option value="〜2万">〜2万</option>
+                        <option value="〜3万">〜3万</option>
+                        <option value="〜4万">〜4万</option>
+                        <option value="〜5万">〜5万</option>
+                        <option value="〜6万">〜6万</option>
+                        <option value="〜7万">〜7万</option>
+                        <option value="〜8万">〜8万</option>
+                        <option value="〜9万">〜9万</option>
+                        <option value="〜10万">〜10万</option>
+                    </select>
+                    <button type="submit" class="btn btn-outline-secondary ml-5">検索</button>
                 </div>
             </form>
             @foreach($hotels as $hotel)
-            <div class="card text-white bg-secondary my-3">
-                <div class="card-header d-flex justify-content-around align-items-center">
-                    <p>{{ $hotel['area'] }}</p>
-                    <p>{{ $hotel['price'] }}</p>
-                    @if($like_model->like_exist(Auth::user()->id,$hotel['id']))
-                        <p class="">
-                            <button type="button" class="js-like-toggle loved btn" data-hotelid="{{ $hotel['id'] }}">
-                                <i class="fas fa-heart fa-lg"></i>
-                            </button>
-                        </p>
-                        @else
-                        <p class="">
-                            <button type="button" class="js-like-toggle loved btn" data-hotelid="{{ $hotel['id'] }}">
-                                <i class="far fa-heart fa-lg"></i>
-                            </button>
-                        </p>
-                    @endif
-                </div>
+            <div class="card my-3" style="width:1000px;margin: 2em auto;padding:2em;border-radius: 30px 60px/60px 30px;border: solid 3px #ccc7be;background-color:#f5f5f5;">
                 <div class="card-body">
                     <div class="row">
                         <div class="col"><img src="{{ asset('storage/'.$hotel['image']) }}" class="img-thumbnail"></div>
-                        <div class="col">{{ $hotel['hotel'] }}</div>
+                        <div class="col">
+                            <h3 style="color:#808080;">ホテル名</h3>
+                            <u style="color:#808080;"><h3 style="color:#808080;">{{ $hotel['hotel'] }}</h3></u>
+                            <h5 class="mt-5" style="color:#808080;">エリア：{{ $hotel['area'] }}</h5>
+                            <h5 class="mt-5" style="color:#808080;">価格：{{ $hotel['price'] }}</h5>
+                        </div>
                     </div>
-                    <div class="row float-right"><a class="text-white" href="{{ route('hotels.show',$hotel['id'] )}}">レビューを見る</a></div>
+                    <div class="row float-right">
+                        @if($like_model->like_exist(Auth::user()->id,$hotel['id']))
+                            <p class="">
+                                <button type="button" class="js-like-toggle loved btn" data-hotelid="{{ $hotel['id'] }}">
+                                    <i class="fas fa-heart fa-lg"></i>
+                                </button>
+                            </p>
+                            @else
+                            <p class="">
+                                <button type="button" class="js-like-toggle loved btn" data-hotelid="{{ $hotel['id'] }}">
+                                    <i class="far fa-heart fa-lg"></i>
+                                </button>
+                            </p>
+                        @endif
+                        <a href="{{ route('hotels.show',$hotel['id'] )}}" style="color:#808080;">レビューを見る</a>
+                    </div>
                 </div>
             </div>  
             @endforeach 
@@ -118,6 +115,13 @@ $(function () {
     });
     
 </script>
+<style>
+    .img-thumbnail{
+        width: 400px;
+        height: 300px;
+        object-fit: cover;
+    }
+</style>
 
 
 

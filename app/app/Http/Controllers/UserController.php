@@ -23,6 +23,7 @@ class UserController extends Controller
     public function index()
     {
         $review = new Review;
+        
 
         $all = $review->where('user_id',Auth::user()->id)->get();
 

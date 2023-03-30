@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('編集') }}</div>
+            <div class="card" style="width:800px;margin: 2em auto;padding:2em;border-radius: 30px 60px/60px 30px;border: solid 6px #bc8f8f;background-color:#f5f5f5;">
+                <div class="card-header border-light" style="width:100px;margin: 2em auto;border-radius: 30px 60px/60px 30px;border: solid 6px;">{{ __('編集') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('users.update',Auth::user()->id) }}">

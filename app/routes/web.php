@@ -31,7 +31,7 @@ Route::post('password/reset/{token}', 'Auth\ResetPasswordController@reset');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('hotels', 'HotelController',['only' => ['index','show','destroy']]);
-    Route::resource('reviews', 'ReviewController',['only' => ['create','show','store']]);
+    Route::resource('reviews', 'ReviewController',['only' => ['create','show','store','edit']]);
     Route::resource('users', 'UserController',['only' => ['index','show','edit','update']]);
     Route::get('/review/new/{hotel}', 'ReviewController@review')->name('reviews.new');
     Route::get('/like', 'UserController@likeIndex')->name('likes.index');
